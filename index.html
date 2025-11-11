@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Christmas Countdown</title>
+<style>
+  body {
+    background: #f9fafb;
+    color: #222;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-align: center;
+    padding: 40px;
+  }
+  .container {
+    max-width: 500px;
+    margin: auto;
+    background: #fff;
+    border: 2px solid #e3e3e3;
+    border-radius: 12px;
+    box‐shadow: 0 4px 12px rgba(0,0,0,0.1);
+    padding: 30px;
+  }
+  h1 {
+    font-size: 2.4em;
+    margin-bottom: 10px;
+    color: #b30000;
+  }
+  .characters {
+    margin: 20px 0;
+  }
+  .characters img {
+    width: 80px;
+    margin: 0 10px;
+    filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.2));
+  }
+  #countdown {
+    font-size: 2em;
+    margin: 20px 0;
+    letter-spacing: 1px;
+    color: #006600;
+  }
+  .note {
+    font-size: 0.9em;
+    color: #555;
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <h1>Christmas Countdown 🎄</h1>
+    <div class="characters">
+      <img src="https://via.placeholder.com/80x80?text=Naruto" alt="Naruto"/>
+      <img src="https://via.placeholder.com/80x80?text=Mikasa" alt="Mikasa"/>
+      <img src="https://via.placeholder.com/80x80?text=Gojo" alt="Gojo"/>
+    </div>
+    <div id="countdown">Loading…</div>
+    <div class="note">…until the big Christmas moment!</div>
+  </div>
+
+<script>
+  // Set target date: December 25 of this year at midnight (local time)
+  const now = new Date();
+  const year = now.getFullYear();
+  const target = new Date(year, 11, 25, 0, 0, 0); // month 11 = December
+  if (now > target) {
+    // if already past December 25 this year, target next year
+    target.setFullYear(year + 1);
+  }
+
+  function updateCountdown() {
+    const now = new Date().getTime();
+    const distance = target.getTime() - now;
+
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    document.getElementById("countdown").textContent =
+      days + "d " + hours + "h " + minutes + "m " + seconds + "s";
+
+    if (distance < 0) {
+      clearInterval(interval);
+      document.getElementById("countdown").textContent = "🎉 Merry Christmas! 🎉";
+    }
+  }
+
+  const interval = setInterval(updateCountdown, 1000);
+  updateCountdown(); // initialize immediately
+</script>
+</body>
+</html>
